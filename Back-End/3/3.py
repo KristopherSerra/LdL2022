@@ -16,9 +16,10 @@ mydb = mysql.connector.connect(
   password = input("Ingrese contraseña: ")
 )
 
+mycursor = mydb.cursor()
+
 print("\033[H\033[J", end="")
 
-mycursor = mydb.cursor()
 
 #Export del archivo que contiene los rangos
 rangos = pd.read_csv('rangos.csv')
