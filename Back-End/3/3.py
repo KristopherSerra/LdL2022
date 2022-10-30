@@ -67,7 +67,7 @@ for i in range(len(faltantes)):
 
 
     for j in range(start, end):
-        sql = "INSERT INTO telefono (localidad , numero) VALUES (%s, %s)"
+        sql = "INSERT INTO telefonos (nombre_localidad , numero) VALUES (%s, %s)"
         val = (loc, str(codArea[i]) + str(j))
         mycursor.execute(sql, val)
 
