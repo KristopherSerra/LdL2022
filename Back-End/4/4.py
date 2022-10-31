@@ -35,8 +35,6 @@ print("\033[H\033[J", end="")
 
 total = int(input("Ingrese total de localidades: "))
 
-# Creacion de un DataFrame para la posterior creacion del archivo .accdb
-
 
 # Conseguir N numeros de la localidad ingresada
 for i in range(total):
@@ -46,6 +44,7 @@ for i in range(total):
     cursor.execute(query, values,)
 
 
+# Ingresar los numeros al archivo access
 for row in cursor.fetchall():
   cursor2.execute("insert into numeros(numero) values (?)", row)
   cursor2.commit()
