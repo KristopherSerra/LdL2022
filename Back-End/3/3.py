@@ -13,7 +13,8 @@ print(" -------- SQL Config Setup -------- ")
 mydb = mysql.connector.connect(
   host="localhost",
   user=input("Ingrese nombre de usuario: "),
-  password = input("Ingrese contraseña: ")
+  password = input("Ingrese contraseña: "),
+  database = 'numeros'
 )
 
 mycursor = mydb.cursor()
@@ -25,7 +26,7 @@ print("\033[H\033[J", end="")
 rangos = pd.read_csv('rangos.csv')
 
 # Creacion del DataFrame con la info de la localidad pedida
-loc = input('Ingrese localidad: ').upper()
+loc = str(input('Ingrese localidad: ').upper())
 
 # Chequeo para verificar si la ciudad es valida
 if (loc in set(rangos["LOCALIDAD"])): 
@@ -67,9 +68,12 @@ for i in range(len(faltantes)):
 
 
     for j in range(start, end):
-        sql = "INSERT INTO telefonos (nombre_localidad , numero) VALUES (%s, %s)"
-        val = (loc, str(codArea[i]) + str(j))
-        mycursor.execute(sql, val)
+        sql = "INSERT INTO telefonos (nombre_localidad, numero) VALUES (%s, %s)".format(loc)
+
+        num = str(codArea[i]) + str(j)
+        values = (loc, num,)
+        mycursor.execute(sql, values)
+        mydb.commit()
 
 print("Numeros cargados correctamente, finalizando...")
 
