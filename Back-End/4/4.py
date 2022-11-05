@@ -3,7 +3,8 @@ import mysql.connector
 import pyodbc
 import msaccessdb
 from getpass import getpass
-
+import os
+import shutil
 
 # Console Clear 
 print("\033[H\033[J", end="")
@@ -24,22 +25,30 @@ cursor = mydb.cursor()
 
 # ---------------------------------------------------
 
-# ------------- Configuracion accdb -----------------
-
-msaccessdb.create(r'C:\Users\_mNb\codes\python\LdL2022\Back-End\4\new.accdb')
-
-conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ= C:\Users\_mNb\codes\python\LdL2022\Back-End\4\new.accdb;')
-cursor2 = conn.cursor()
-cursor2.execute("CREATE TABLE numeros(numero INT);" )
-cursor2.commit()
-
-#----------------------------------------------------
 
 # Console Clear
 print("\033[H\033[J", end="")
 
 # Check para no crear mas de 10 archivos
 for i in range(10):
+
+  # ------------- Configuracion accdb -----------------
+
+  dir = str(os.getcwd()) + '\Back-End\Access\Bd-' + str(i) + '.accdb'
+  msaccessdb.create(dir)
+
+  db_driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
+  conn_str = (rf'DRIVER={db_driver};'
+              rf'DBQ={dir};')
+
+  conn = pyodbc.connect(conn_str)
+
+  cursor2 = conn.cursor()
+  cursor2.execute("CREATE TABLE numeros(numero STRING);" )
+  cursor2.commit()
+
+  #----------------------------------------------------
+
   total = int(input("Ingrese total de localidades: "))
 
 
