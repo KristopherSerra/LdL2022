@@ -4,7 +4,6 @@ import pyodbc
 import msaccessdb
 from getpass import getpass
 import os
-import shutil
 
 # Console Clear 
 print("\033[H\033[J", end="")
@@ -34,7 +33,7 @@ for i in range(10):
 
   # ------------- Configuracion accdb -----------------
 
-  dir = str(os.getcwd()) + '\Back-End\Access\Bd-' + str(i) + '.accdb'
+  dir = str(os.getcwd()) + '\Back-End\Access\File_' + str(i) + '.accdb'
   msaccessdb.create(dir)
 
   db_driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
@@ -68,7 +67,7 @@ for i in range(10):
   sleep(3)
 
   if(i < 9):
-    x = input("Desea crear otro archivo Access? (s para continuar, cualquier otro para cancelar)")
+    x = input("Desea crear otro archivo Access? (s para continuar, cualquier otra tecla para cancelar): ")
     if(x.lower() != 's'):
       break;
 
