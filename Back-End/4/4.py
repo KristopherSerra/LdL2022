@@ -2,6 +2,7 @@ from time import sleep
 import mysql.connector
 import pyodbc
 import msaccessdb
+from getpass import getpass
 
 
 # Console Clear 
@@ -13,9 +14,9 @@ print("\033[H\033[J", end="")
 print(" -------- SQL Config Setup -------- ")
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user=input("Ingrese nombre de usuario: "),
-  password = input("Ingrese contraseña: "),
+  host = "localhost",
+  user = input("Ingrese nombre de usuario: "),
+  password = getpass('Ingrese password:'),
   database = "numeros"
 )
 
@@ -24,10 +25,13 @@ cursor = mydb.cursor()
 # ---------------------------------------------------
 
 # ------------- Configuracion accdb -----------------
-# msaccessdb.create(r'C:\Users\_mNb\codes\python\LdL2022\Back-End\4\new.accdb')
 
-conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ= C:\Users\_mNb\codes\python\LdL2022\Back-End\4\db.accdb;')
+msaccessdb.create(r'C:\Users\_mNb\codes\python\LdL2022\Back-End\4\new.accdb')
+
+conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ= C:\Users\_mNb\codes\python\LdL2022\Back-End\4\new.accdb;')
 cursor2 = conn.cursor()
+cursor2.execute("CREATE TABLE numeros(numero INT);" )
+cursor2.commit()
 
 #----------------------------------------------------
 
