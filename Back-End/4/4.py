@@ -52,7 +52,7 @@ for i in range(10):
 
 
   # Conseguir N numeros de la localidad ingresada
-  for i in range(total):
+  for j in range(total):
       loc = input("Ingrese localidad: ")
       query ="SELECT numero FROM telefonos WHERE nombre_localidad = %s ORDER BY RAND() LIMIT %s ".format(loc)
       values = (loc, round(7000/total))
@@ -66,7 +66,7 @@ for i in range(10):
   print("Carga de numeros completa")
   sleep(3)
 
-  if(i < 9):
+  if(j < 9):
     x = input("Desea crear otro archivo Access? (s para continuar, cualquier otra tecla para cancelar): ")
     if(x.lower() != 's'):
       break;
