@@ -28,8 +28,14 @@ cursor = mydb.cursor()
 # Console Clear
 print("\033[H\033[J", end="")
 
-# Check para no crear mas de 10 archivos
-for i in range(10):
+
+files = input("Ingrese la cantidad de archivos a crear (1-10): ")
+
+if (files > 10 | files < 1):
+  print("Numero no valido, cerrando")
+  quit()
+
+for i in range(files):
 
   # ------------- Configuracion accdb -----------------
 
@@ -66,10 +72,6 @@ for i in range(10):
   print("Carga de numeros completa")
   sleep(3)
 
-  if(j < 9):
-    x = input("Desea crear otro archivo Access? (s para continuar, cualquier otra tecla para cancelar): ")
-    if(x.lower() != 's'):
-      break;
 
 # Cierre de conexion
 print("Cerrando conexiones...")
