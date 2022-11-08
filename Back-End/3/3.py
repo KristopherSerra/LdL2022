@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user=input("Ingrese nombre de usuario: "),
   password = input("Ingrese contraseña: "),
-  database = 'numeros'
+  database = 'dannafox-test'
 )
 
 mycursor = mydb.cursor()
@@ -68,7 +68,7 @@ for i in range(len(faltantes)):
 
 
     for j in range(start, end):
-        sql = "INSERT INTO telefonos (nombre_localidad, numero) VALUES (%s, %s)".format(loc)
+        sql = "INSERT INTO telefono (nombre, numero) VALUES (%s, %s)".format(loc)
 
         num = str(codArea[i]) + str(j)
         values = (loc, num,)
