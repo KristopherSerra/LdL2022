@@ -25,6 +25,7 @@ print("\033[H\033[J", end="")
 #Export del archivo que contiene los rangos
 rangos = pd.read_csv('rangos.csv')
 
+
 # Creacion del DataFrame con la info de la localidad pedida
 loc = str(input('Ingrese localidad: ').upper())
 
