@@ -1,7 +1,7 @@
 from time import sleep
 import pandas as pd
 import mysql.connector
-
+import os
 
 # Console Clear
 print("\033[H\033[J", end="")
@@ -23,13 +23,14 @@ print("\033[H\033[J", end="")
 
 
 #Export del archivo que contiene los rangos
-rangos = pd.read_csv('rangos.csv')
+dir = str(os.getcwd()) + '\Rangos.csv'
+rangos = pd.read_csv(dir)
 
-cantidad = input("Ingrese total de localidades a cargar: ")
+cantidad = int(input("Ingrese total de localidades a cargar: "))
 
 for i in range(cantidad):
     # Creacion del DataFrame con la info de la localidad pedida
-    loc = str(input('Ingrese localidad: ' , i+1).upper())
+    loc = str(input('Ingrese localidad: ').upper())
 
     # Chequeo para verificar si la ciudad es valida
     if (loc in set(rangos["LOCALIDAD"])): 
