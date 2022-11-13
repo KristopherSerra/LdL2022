@@ -10,9 +10,9 @@ print(" -------- SQL Config Setup -------- ")
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user=input("Ingrese nombre de usuario: "),
-  password = input("Ingrese contraseña: "),
-  database = 'dannafox-test'
+  user="root",
+  password = "",
+  database = "dannafox-test"
 )
 
 mycursor = mydb.cursor()
