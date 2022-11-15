@@ -5,6 +5,15 @@ import msaccessdb
 from getpass import getpass
 import os
 
+# funcion para crear una lista
+def lista_de_ciudades(ciudades):
+	lista_de_ciudades = '(\''
+	for item  in ciudades:
+		lista_de_ciudades += item + '\',\''		
+	return lista_de_ciudades[:-3]+'\')'
+
+
+
 # Console Clear 
 print("\033[H\033[J", end="")
 
@@ -29,7 +38,7 @@ cursor = mydb.cursor()
 print("\033[H\033[J", end="")
 
 
-files = input("Ingrese la cantidad de archivos a crear (1-10): ")
+files = int(input("Ingrese la cantidad de archivos a crear (1-10): "))
 
 if (files > 10 | files < 1):
   print("Numero no valido, cerrando")
@@ -61,7 +70,7 @@ loc = []
 for j in range(total):
       loc[j] = input("Ingrese localidad: ")
 
-query ="SELECT numero FROM telefonos WHERE nombre_localidad IN %s ORDER BY RAND() LIMIT %s ".format(loc)
+query ="SELECT numero FROM telefonos WHERE nombre_localidad IN " + lista_de_ciudades(loc) + " ORDER BY RAND() LIMIT %s ".format(loc)
 values = (loc, round(7000))
 cursor.execute(query, values,)
 
