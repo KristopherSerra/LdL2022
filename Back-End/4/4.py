@@ -26,7 +26,7 @@ mydb = mysql.connector.connect(
   host = "localhost",
   user = "root",
   password = getpass('Ingrese password:'),
-  database = "numeros"
+  database = "dannafox-test"
 )
 
 
