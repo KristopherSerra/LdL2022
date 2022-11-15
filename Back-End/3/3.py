@@ -13,7 +13,7 @@ print(" -------- SQL Config Setup -------- ")
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password = "",
+  password = "1234",
   database = "dannafox-test"
 )
 
@@ -35,6 +35,15 @@ for i in range(cantidad):
     # Chequeo para verificar si la ciudad es valida
     if (loc in set(rangos["LOCALIDAD"])): 
         location = rangos[rangos['LOCALIDAD'] == loc]
+
+        # Obtener id de la localidad
+        getId = "SELECT id FROM localidad WHERE nombre = %s ".format(loc)
+        values = (loc,)
+        mycursor.execute(getId, values)
+        id = mycursor.fetchone()
+        print(id)
+        sleep(2)
+
     else:
         print("No se ha encontrado la localidad ingresada, Finalizando...")
         quit()
@@ -48,6 +57,7 @@ for i in range(cantidad):
         codArea.append(str(location.iloc[i].INDICATIVO))
         bloque.append(str(location.iloc[i].BLOQUE))
     print("Datos de la locacion cargados exitosamente")    
+
 
     # Almacena cuantos digitos faltan para completar el numero
     faltantes = [] 
@@ -72,10 +82,10 @@ for i in range(cantidad):
 
 
         for j in range(start, end):
-            sql = "INSERT INTO telefono (nombre, numero) VALUES (%s, %s)".format(loc)
+            sql = "INSERT INTO telefono (localidad_id, numero) VALUES (%s, %s)".format(id)
 
             num = str(codArea[i]) + str(j)
-            values = (loc, num,)
+            values = (id, num,)
             mycursor.execute(sql, values)
             mydb.commit()
 
