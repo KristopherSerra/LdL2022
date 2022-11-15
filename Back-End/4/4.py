@@ -15,9 +15,9 @@ print(" -------- SQL Config Setup -------- ")
 
 mydb = mysql.connector.connect(
   host = "localhost",
-  user = input("Ingrese nombre de usuario: "),
   password = getpass('Ingrese password:'),
   database = "numeros"
+  user = "root",
 )
 
 cursor = mydb.cursor()
@@ -29,7 +29,7 @@ cursor = mydb.cursor()
 print("\033[H\033[J", end="")
 
 
-files = input("Ingrese la cantidad de archivos a crear (1-10): ")
+files = int(input("Ingrese la cantidad de archivos a crear (1-10): "))
 
 if (files > 10 | files < 1):
   print("Numero no valido, cerrando")
@@ -39,7 +39,7 @@ for i in range(files):
 
   # ------------- Configuracion accdb -----------------
 
-  dir = str(os.getcwd()) + '\Back-End\Access\File_' + str(i) + '.accdb'
+  dir = str(os.getcwd()) +  str(i) + '.accdb'
   msaccessdb.create(dir)
 
   db_driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
