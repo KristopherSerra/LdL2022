@@ -24,10 +24,11 @@ print(" -------- SQL Config Setup -------- ")
 
 mydb = mysql.connector.connect(
   host = "localhost",
-  user = input("Ingrese nombre de usuario: "),
+  user = "root",
   password = getpass('Ingrese password:'),
-  database = "dannafox-test"
+  database = "numeros"
 )
+
 
 cursor = mydb.cursor()
 
@@ -48,7 +49,7 @@ for i in range(files):
 
   # ------------- Configuracion accdb -----------------
 
-  dir = str(os.getcwd()) + '\Back-End\Access\File_' + str(i) + '.accdb'
+  dir = str(os.getcwd()) +  str(i) + '.accdb'
   msaccessdb.create(dir)
 
   db_driver = '{Microsoft Access Driver (*.mdb, *.accdb)}'
