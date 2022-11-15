@@ -1,6 +1,7 @@
 from time import sleep
 import pandas as pd
 import mysql.connector
+import os
 
 # Console Clear
 print("\033[H\033[J", end="")
@@ -11,7 +12,7 @@ print(" -------- SQL Config Setup -------- ")
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password = "",
+  password = "1234",
   database = "dannafox-test"
 )
 
@@ -22,7 +23,8 @@ print("\033[H\033[J", end="")
 #---------POBLADO DE LOCALIDADES EN LA BASE DE DATOS---------#
 
 # Extraer tabla completa, eliminar bloque y eliminar duplicados
-localidades = pd.read_csv('./Back-End/3/rangos.csv')
+dir = str(os.getcwd()) + '\Rangos.csv'
+localidades = pd.read_csv(dir)
 localidades.pop('BLOQUE')
 localidades = localidades.drop_duplicates()  # Dataframe con localidades
 localidades.reset_index(drop=True, inplace=True)
