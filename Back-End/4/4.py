@@ -56,21 +56,22 @@ for i in range(files):
 
   total = int(input("Ingrese total de localidades: "))
 
-
+loc = []
   # Conseguir N numeros de la localidad ingresada
-  for j in range(total):
-      loc = input("Ingrese localidad: ")
-      query ="SELECT numero FROM telefonos WHERE nombre_localidad = %s ORDER BY RAND() LIMIT %s ".format(loc)
-      values = (loc, round(7000/total))
-      cursor.execute(query, values,)
+for j in range(total):
+      loc[j] = input("Ingrese localidad: ")
+
+query ="SELECT numero FROM telefonos WHERE nombre_localidad IN %s ORDER BY RAND() LIMIT %s ".format(loc)
+values = (loc, round(7000))
+cursor.execute(query, values,)
 
       # Ingresar los numeros al archivo access
-      for row in cursor.fetchall():
-        cursor2.execute("insert into numeros(numero) values (?)", row)
-        cursor2.commit()
+for row in cursor.fetchall():
+  cursor2.execute("insert into numeros(numero) values (?)", row)
+  cursor2.commit()
         
-  print("Carga de numeros completa")
-  sleep(3)
+print("Carga de numeros completa")
+sleep(3)
 
 
 # Cierre de conexion
