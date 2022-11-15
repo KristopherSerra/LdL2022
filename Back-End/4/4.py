@@ -24,10 +24,11 @@ print(" -------- SQL Config Setup -------- ")
 
 mydb = mysql.connector.connect(
   host = "localhost",
-  password = getpass('Ingrese password:'),
-  database = "numeros"
   user = "root",
-)
+  password = getpass('Ingrese password:'),
+  database = "dannafox-test"
+  )
+
 
 cursor = mydb.cursor()
 
