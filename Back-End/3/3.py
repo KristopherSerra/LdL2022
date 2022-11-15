@@ -41,8 +41,7 @@ for i in range(cantidad):
         values = (loc,)
         mycursor.execute(getId, values)
         id = mycursor.fetchone()
-        print(id)
-        sleep(2)
+        id = int(id[0])
 
     else:
         print("No se ha encontrado la localidad ingresada, Finalizando...")
