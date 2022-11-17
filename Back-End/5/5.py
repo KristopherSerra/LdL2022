@@ -1,18 +1,17 @@
 import openpyxl
 from openpyxl import load_workbook
+from openpyxl.styles import Border,Side,Color
 import datetime 
 from time import sleep
 import mysql.connector
 
 
 
-# Console Clear 
+# Clean Screen
 print("\033[H\033[J", end="")
 
 
-# ------------- Configuracion SQL -------------------
-print(" -------- SQL Config Setup -------- ")
-
+# Conexion con SQL 
 mydb = mysql.connector.connect(
   host = "localhost",
   user = "root",
@@ -23,22 +22,38 @@ mydb = mysql.connector.connect(
 print("\033[H\033[J", end="")
 
 cursor = mydb.cursor()
-nombre = 'Gibson'#input("Ingrese el nombre de la campaña: ")
-# Traer el estado de la campania y comparar
+nombre = str(input("¿De que campaña desea un reporte? Recuerde que debe estar finalizada\n"))
+
 q1 = "SELECT estado FROM campania WHERE nombre = '"+nombre + "'"
+
 cursor.execute(q1,)
 estado =  cursor.fetchone()
+while (estado == None):
+  print("ERROR!! No existe la campaña que desea \n ")
+  sleep(2)
+  print("\033[H\033[J", end="")
+  nombre = str(input("¿De que campaña desea un reporte? Recuerde que debe estar finalizada\n"))
+  q1 = "SELECT estado FROM campania WHERE nombre = '"+nombre + "'"
+  cursor.execute(q1,)
+  estado =  cursor.fetchone()
+  
 estado = str(estado[0])
-excel = ''
-if (estado.upper() != "FINALIZADA" ):
-    print("La Campaña no ha finalizado")
-    quit()
-else:
+
+while (estado.upper() != "FINALIZADA" ):
+    print("La campaña no esta finalizada, intente con una Campaña que lo este")
+    sleep(2)
+    print("\033[H\033[J", end="")
+    nombre = str(input("¿De que campaña desea un reporte? Recuerde que debe estar finalizada\n"))
+    q1 = "SELECT estado FROM campania WHERE nombre = '"+nombre + "'"
+    cursor.execute(q1,)
+    estado =  cursor.fetchone()
+    estado = str(estado[0])    
+
   #SELECCIONA LA CAMPAÑA FINALIZADA
-  q2 = "SELECT * FROM campania WHERE nombre = '" + nombre +"'"
-  cursor.execute(q2,)
-  info =  cursor.fetchone()
-  mensaje = info[5]
+q2 = "SELECT * FROM campania WHERE nombre = '" + nombre +"'"
+cursor.execute(q2,)
+info =  cursor.fetchone()
+mensaje = info[5]
 
 q5 = "SELECT nombre FROM localidad l INNER JOIN campania_por_localidad lpc WHERE l.id = lpc.localidad_id AND lpc.campania_id = " + str(info[0])
 cursor.execute(q5,)
@@ -56,21 +71,23 @@ for localidad in localidades:
     locs.append(str(localidad))
 wb = openpyxl.Workbook()
 hoja = wb.active
+
+finalizacion = datetime.date.today()
 # Crea la fila del encabezado con los títulos
-hoja.append(('Nombre De la Campaña', 'Localidades', 'Cantidad de Mensajes', 'Fecha Inicio'))
-producto = [nombre,localidades[0][0],cant_mensajes,fecha_inicio]
+hoja.append(('Nombre De la Campaña', 'Localidades', 'Cantidad de Mensajes', 'Fecha Inicio','Fecha de Finalizacion'))
+producto = [nombre,localidades[0][0],cant_mensajes,fecha_inicio, finalizacion]
 hoja.append(producto)
+
 
 j=0
 for a in range(len(localidades)):
   hoja["B"+str(a+2)] = localidades [j][0]
   j = j+1
 
-
 # producto es una tupla con los valores de un producto 
-
 wb.save('Informe Automatico - Danna Fox.xlsx')
-
+sleep(2)
+print("La campaña se leyo a la perfeccion y los datos fueron cargados en la planilla de Excel 'Informe Automatico - Danna Fox.xlsx'")
 
 #ENVIO DEL REPORTE VIA GMAIL
 import smtplib
