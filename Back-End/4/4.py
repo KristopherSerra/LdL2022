@@ -33,9 +33,11 @@ print("\033[H\033[J", end="")
 
 files = int(input("Ingrese la cantidad de archivos a crear (1-10): "))
 
-if (files > 10 or files < 1):
-  print("Numero no valido, cerrando")
-  quit()
+# Check para que se ingrese un numero valido entre el intervalo dado (1 a 10)
+while (files > 10 or files < 1):
+  print("Numero no valido, ingrese nuevamente")
+  files = int(input("Ingrese la cantidad de archivos a crear (1-10): "))
+
 
 for i in range(files):
 
@@ -57,40 +59,60 @@ for i in range(files):
   #----------------------------------------------------
 
   total = int(input("Ingrese total de localidades: "))
+  
+  while (total < 1):
+    print("Numero incorrecto, ingrese nuevamente")
+    total = int(input("Ingrese total de localidades: "))
+
+  ids = []
+  ids_str = "("
+
+    # Conseguir N numeros de la localidad ingresada
+  for j in range(total):
+
+    while(True):
+      loc = str(input("Ingrese localidad: "))
+
+      # Check para comprobar si la ciudad es correcta
+      check = "SELECT nombre,id FROM localidad WHERE nombre = '" + loc + "'"
+      cursor.execute(check,)
+      if(cursor.fetchone() == None):
+        print("No se ha encontrado la localidad, ingrese nuevamente")
+      else:
+        break
 
 
-ids = []
-ids_str = "("
-
-  # Conseguir N numeros de la localidad ingresada
-for j in range(total):
-    loc = (input("Ingrese localidad: "))
-
+  
     # Conseguir id de las localidades
     getId = "SELECT id FROM localidad WHERE nombre = %s ".format(loc)
     values = (loc,)
     cursor.execute(getId, values)
     id = cursor.fetchone()
+
+
+
+
     id = int(id[0])
+
     ids_str += str(id) + ","
 
-ids_str = ids_str[:-1]
-ids_str += ")" 
+  ids_str = ids_str[:-1]
+  ids_str += ")" 
 
-# Seleccionar numeros de las localidades ingresadas
+  # Seleccionar numeros de las localidades ingresadas
 
-query = "SELECT numero FROM telefono WHERE localidad_id IN " + ids_str + "ORDER BY RAND() LIMIT 7000"
-cursor.execute(query)
+  query = "SELECT numero FROM telefono WHERE localidad_id IN " + ids_str + "ORDER BY RAND() LIMIT 7000"
+  cursor.execute(query)
 
 
 
-# Ingresar los numeros al archivo access
-for row in cursor.fetchall():
-  cursor2.execute("insert into numeros(numero) values (?)", row)
-  cursor2.commit()
-        
-print("Carga de numeros completa")
-sleep(3)
+  # Ingresar los numeros al archivo access
+  for row in cursor.fetchall():
+    cursor2.execute("insert into numeros(numero) values (?)", row)
+    cursor2.commit()
+          
+  print("Carga de numeros completa")
+  sleep(3)
 
 
 # Cierre de conexion
