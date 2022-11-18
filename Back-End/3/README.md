@@ -1,8 +1,6 @@
 Instrucciones:
 
-1) Ejecutar el script 'pobladolocalidades.py', el cual se encarga de poblar la tabla 'localidad'. Solo se requiere su ejecucion una vez
-
-2) Ejecutar el script '3.py'. Este se encargara del poblado de la tabla numeros. Ejecutar las veces que sea necesario.
+1) Ejecutar el script '3.py'. Este se encargara del poblado de la tabla numeros y localidad. Ejecutar las veces que sea necesario.
 
 
 
