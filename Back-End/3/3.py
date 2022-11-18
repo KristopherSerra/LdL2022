@@ -38,6 +38,13 @@ for i in range(cantidad):
     # Creacion del DataFrame con la info de la localidad pedida
     loc = str(input('Ingrese localidad: ').upper())
 
+    query = "SELECT nombre FROM localidad WHERE nombre = '" + loc + "'"
+    mycursor.execute(query,)
+    if(mycursor.fetchone != None):
+        print("La localidad ya ha sido cargada")
+        print("Cerrando...")
+        quit()
+
     # Chequeo para verificar si la ciudad es valida
     while(loc not in set(rangos["LOCALIDAD"])):
         print("No se ha encontrado la localidad ingresada, ingrese nuevamente...")
