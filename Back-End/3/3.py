@@ -40,10 +40,12 @@ for i in range(cantidad):
 
     query = "SELECT nombre FROM localidad WHERE nombre = '" + loc + "'"
     mycursor.execute(query,)
-    if(mycursor.fetchone != None):
-        print("La localidad ya ha sido cargada")
-        print("Cerrando...")
-        quit()
+
+    while (mycursor.fetchone() != None):
+        print("La localidad ya ha sido cargada, ingrese nuevamente")
+        loc = str(input('Ingrese localidad: ').upper())
+        query = "SELECT nombre FROM localidad WHERE nombre = '" + loc + "'"
+        mycursor.execute(query,)
 
     # Chequeo para verificar si la ciudad es valida
     while(loc not in set(rangos["LOCALIDAD"])):
