@@ -12,7 +12,7 @@ print(" -------- SQL Config Setup -------- ")
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password = "1234",
+  password = "",
   database = "dannafox-test"
 )
 
