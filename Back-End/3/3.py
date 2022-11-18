@@ -44,6 +44,15 @@ for i in range(cantidad):
         loc = str(input('Ingrese localidad: ').upper())
         
     location = rangos[rangos['LOCALIDAD'] == loc]
+  
+    cod = str(location.iloc[0].INDICATIVO)
+
+    sql = "INSERT INTO localidad (nombre, codigo_area) VALUES (%s, %s)"
+    values = (loc, cod)
+    mycursor.execute(sql, values)
+    mydb.commit()
+
+    print("Se insertaron los datos de la localidad en la base de datos")
 
     # Obtener id de la localidad
     getId = "SELECT id FROM localidad WHERE nombre = %s ".format(loc)
