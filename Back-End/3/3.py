@@ -53,6 +53,8 @@ for i in range(cantidad):
     mydb.commit()
 
     print("Se insertaron los datos de la localidad en la base de datos")
+    sleep(2)
+    print("\033[H\033[J", end="")
 
     # Obtener id de la localidad
     getId = "SELECT id FROM localidad WHERE nombre = %s ".format(loc)
