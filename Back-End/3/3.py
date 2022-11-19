@@ -107,10 +107,10 @@ for i in range(cantidad):
 
 
         for j in range(start, end):
-            sql = "INSERT INTO telefono (localidad_id, numero) VALUES (%s, %s)".format(id)
+            sql = "INSERT INTO telefono (localidad_id, nombre, numero) VALUES (%s, %s, %s)".format(id)
 
             num = str(codArea[i]) + str(j)
-            values = (id, num,)
+            values = (id, loc, num,)
             mycursor.execute(sql, values)
             mydb.commit()
 
