@@ -16,7 +16,7 @@ mydb = mysql.connector.connect(
   host = "localhost",
   user = "root",
   password = "",
-  database = "dannafox-example"
+  database = "dannafox-test"
 )
 
 print("\033[H\033[J", end="")
