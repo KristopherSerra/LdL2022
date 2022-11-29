@@ -98,7 +98,7 @@ from email import encoders
  
 # Iniciamos los parámetros del script
 remitente = 'labdeleng2022@gmail.com' #GMail creado unicamente para la actividad
-destinatarios = ['labdeleng2022@gmail.com']
+destinatarios = ['ggnazzo@docentes.unsada.edu.ar']
 asunto = '[INFORME] Informe Actualizado de la Campaña publicitaria finalizada'
 cuerpo = 'Este es un aviso automatico, por favor no responder.\nAtte. Equipo de Desarrollo - Danna Fox'
 ruta_adjunto = 'Informe Automatico - Danna Fox.xlsx'
@@ -146,4 +146,4 @@ sesion_smtp.sendmail(remitente, destinatarios, texto)
 
 # Cerramos la conexión
 sesion_smtp.quit()
-print("\n\nSe envio el mail a la direccion LdLenguajes@gmail.com\n\n")
+print("\n\nSe envio el mail a la direccion \n\n" + destinatarios)

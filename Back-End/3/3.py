@@ -26,7 +26,15 @@ print("\033[H\033[J", end="")
 dir = str(os.getcwd()) + '\Rangos.csv'
 rangos = pd.read_csv(dir)
 
-cantidad = int(input("Ingrese total de localidades a cargar: "))
+while True:
+    try:
+        cantidad = int(input("Ingrese total de localidades a cargar: "))
+        while (cantidad < 1):
+            print("Numero no valido, ingrese nuevamente...")
+            cantidad = int(input("Ingrese total de localidades a cargar: "))
+        break
+    except ValueError:
+        print("Solo numeros,intente nuevamente.")
 
 # Check para que se ingrese 1 localidad como minimo
 while (cantidad < 1):
